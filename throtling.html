@@ -8,27 +8,37 @@
 </head>
 <body>
     <h1>throtling</h1>
-    <input type="text" id="throtling" oninput="throtling(getdata,2000)()">
+    <input type="text" id="throtling" >
 </body>
 </html>
 
 <script>
+    let betterExpencive = throtling(expensive)
+    document.getElementById('throtling').addEventListener('input',betterExpencive)
     
-    function getdata(){
-        let val = document.getElementById('throtling').value;
-        console.log(val)
+    
+    function expensive(){
+        // console.log(window.innerHeight)
+        console.log('from expensive function')
     }
     
-    function throtling(cb,delay){
-        let lastCall = 0
+    
+    
+    
+    function throtling(expensive){
+        let flag = true;
         
         return function(){
-            if (Date.now() - lastCall > delay){
-            lastCall = Date.now();
-            // console.log(lastCall)
-            cb()
+            if (flag){
+                expensive();
+                flag = false;
+                setTimeout(()=>{
+                    flag = true;
+                },1000)
+           }
         }
+        
     }
-}
 
+    // window.addEventListener("resize",betterExpencive)
 </script>
